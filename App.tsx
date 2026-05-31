@@ -2,182 +2,208 @@ import { useState } from 'react';
 import { 
   MapPin, Coffee, Accessibility, Store, Baby, Trees, HelpCircle, Activity, 
   BookOpen, Newspaper, MessageCircle, Mic, Users, HeartHandshake, AlertCircle, 
-  Menu, X 
+  Menu, X, ArrowRight
 } from 'lucide-react';
 
 export default function App() {
-  // Steuert, ob das Handy-Menü offen oder zu ist
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Kleine Hilfsfunktion, damit sich das Menü beim Klicken schließt
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <div className="min-h-screen bg-stone-50 text-stone-800 font-sans">
+    <div className="min-h-screen bg-[#fafaf9] text-stone-800 font-sans selection:bg-orange-200 selection:text-orange-900">
       
-      {/* LGBTQ+ Pride Border am oberen Rand */}
-      <div className="h-1.5 w-full bg-gradient-to-r from-red-500 via-orange-400 via-yellow-400 via-green-400 via-blue-500 to-purple-500"></div>
+      {/* Fixed Pride Border at the very top */}
+      <div className="fixed top-0 left-0 right-0 h-1.5 z-[100] bg-gradient-to-r from-red-500 via-orange-400 via-yellow-400 via-green-400 via-blue-500 to-purple-500"></div>
 
-      {/* NAVIGATION - Jetzt mit Handy-Menü */}
-      <header className="bg-[#fcd34d] sticky top-0 z-50 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-4 md:py-6">
-          <div className="flex justify-between items-center">
+      {/* FLOATING NAVIGATION (Modern Glassmorphism) */}
+      <div className="fixed top-6 left-0 right-0 z-50 px-4 pointer-events-none">
+        <header className="max-w-5xl mx-auto bg-white/70 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl pointer-events-auto transition-all duration-300">
+          <div className="px-6 py-4 flex justify-between items-center">
             
-            {/* Sichtbar auf Handy: Kleines Logo/Name für die Übersicht */}
-            <div className="md:hidden flex items-center gap-2 text-orange-900 font-bold text-lg">
-              <MessageCircle className="w-5 h-5" />
-              <span>Praxis Brendel</span>
+            {/* Logo Area */}
+            <div className="flex items-center gap-3">
+              <div className="bg-gradient-to-br from-orange-400 to-orange-600 text-white p-2 rounded-xl shadow-sm">
+                <MessageCircle className="w-5 h-5" />
+              </div>
+              <span className="font-extrabold text-xl tracking-tight text-stone-900">Brendel</span>
             </div>
 
-            {/* Desktop Navigation (Versteckt auf dem Handy) */}
-            <nav className="hidden md:flex flex-wrap justify-center md:justify-between items-center gap-6 text-[#ea580c] text-lg font-medium tracking-wide w-full">
-              <a href="#praxis" className="hover:text-orange-900 transition">Die Praxis</a>
-              <a href="#fragen" className="hover:text-orange-900 transition">Fragen zur Therapie</a>
-              <a href="#stoerungen" className="hover:text-orange-900 transition">Störungsbilder</a>
-              <a href="#schulungen" className="hover:text-orange-900 transition">Schulungsangebote</a>
-              <a href="#aktuelles" className="hover:text-orange-900 transition">Aktuelles</a>
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-stone-600">
+              <a href="#praxis" className="hover:text-orange-600 transition">Praxis</a>
+              <a href="#fragen" className="hover:text-orange-600 transition">Therapie</a>
+              <a href="#stoerungen" className="hover:text-orange-600 transition">Störungsbilder</a>
+              <a href="#schulungen" className="hover:text-orange-600 transition">Schulungen</a>
             </nav>
 
-            {/* Hamburger Button für das Handy */}
+            {/* Mobile Menu Button */}
             <button 
-              className="md:hidden text-orange-900 p-1"
+              className="md:hidden text-stone-800 p-1 hover:bg-stone-100 rounded-lg transition"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
 
-          {/* Die weiße Linie aus dem Original-Design (nur auf Desktop sichtbar) */}
-          <div className="hidden md:block mt-3 w-full h-1 bg-white/80 rounded-full"></div>
-        </div>
+          {/* Mobile Nav Dropdown */}
+          {isMenuOpen && (
+            <div className="md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 border-t border-stone-100/50">
+              <a href="#praxis" onClick={closeMenu} className="text-stone-600 font-medium text-lg">Die Praxis</a>
+              <a href="#fragen" onClick={closeMenu} className="text-stone-600 font-medium text-lg">Fragen zur Therapie</a>
+              <a href="#stoerungen" onClick={closeMenu} className="text-stone-600 font-medium text-lg">Störungsbilder</a>
+              <a href="#schulungen" onClick={closeMenu} className="text-stone-600 font-medium text-lg">Schulungsangebote</a>
+              <a href="#aktuelles" onClick={closeMenu} className="text-orange-600 font-medium text-lg">Aktuelles ansehen &rarr;</a>
+            </div>
+          )}
+        </header>
+      </div>
 
-        {/* Aufklappbares Menü für das Smartphone */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-[#fcd34d] border-t border-orange-300/30 px-4 py-4 flex flex-col gap-4 text-orange-900 font-medium shadow-inner absolute w-full">
-            <a href="#praxis" onClick={closeMenu} className="block py-2 border-b border-orange-300/20">Die Praxis</a>
-            <a href="#fragen" onClick={closeMenu} className="block py-2 border-b border-orange-300/20">Fragen zur Therapie</a>
-            <a href="#stoerungen" onClick={closeMenu} className="block py-2 border-b border-orange-300/20">Störungsbilder</a>
-            <a href="#schulungen" onClick={closeMenu} className="block py-2 border-b border-orange-300/20">Schulungsangebote</a>
-            <a href="#aktuelles" onClick={closeMenu} className="block py-2">Aktuelles</a>
-          </div>
-        )}
-      </header>
+      {/* HERO SECTION - MODERN SPLIT LAYOUT */}
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-4 overflow-hidden">
+        {/* Soft Background Accents */}
+        <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-[800px] h-[600px] bg-orange-100/50 rounded-full blur-[100px] -z-10"></div>
+        <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-[600px] h-[600px] bg-yellow-100/40 rounded-full blur-[100px] -z-10"></div>
 
-      {/* HERO BEREICH - Mehr Luft und modernere Abstände */}
-      <section className="bg-white py-24 md:py-32 px-4 border-b border-stone-200 text-center relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-80 bg-orange-50 rounded-full blur-3xl opacity-60 -z-10"></div>
-        
-        <div className="max-w-4xl mx-auto">
-          {/* LGBTQ+ Safe Space Badge */}
-          <div className="inline-flex items-center gap-2 bg-stone-50 text-stone-700 px-5 py-2.5 rounded-full text-sm font-medium mb-10 border border-stone-200 shadow-sm hover:shadow-md transition">
-            <HeartHandshake className="w-4 h-4 text-red-500" />
-            Safe Space – Alle sind hier willkommen 🏳️‍🌈
-          </div>
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
           
-          <h1 className="text-5xl md:text-7xl font-extrabold text-stone-800 mb-8 tracking-tight leading-tight">
-            Praxis für Logopädie <br className="hidden md:block" />
-            <span className="text-[#ea580c]">Simone Brendel</span>
-          </h1>
-          <p className="text-lg md:text-2xl text-stone-500 max-w-2xl mx-auto leading-relaxed font-light">
-            Wir freuen uns, Sie an unseren zwei Standorten in Cremlingen und Sickte in entspannter, offener Atmosphäre begrüßen zu dürfen.
-          </p>
+          {/* Left: Typography */}
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-stone-200 text-stone-700 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider mb-8 shadow-sm">
+              <HeartHandshake className="w-4 h-4 text-red-500" />
+              Safe Space 🏳️‍🌈
+            </div>
+            
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-stone-900 tracking-tight leading-[1.05] mb-6">
+              Stimme. <br />
+              Sprache. <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">
+                Selbstvertrauen.
+              </span>
+            </h1>
+            
+            <p className="text-lg md:text-xl text-stone-500 leading-relaxed font-light mb-10 max-w-lg">
+              Wir freuen uns, Sie in unserer Praxis für Logopädie an den Standorten <strong>Cremlingen</strong> und <strong>Sickte</strong> in entspannter, offener Atmosphäre begrüßen zu dürfen.
+            </p>
+            
+            <div className="flex flex-wrap items-center gap-4">
+              <a href="#praxis" className="bg-stone-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-stone-800 transition-all flex items-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                Standorte entdecken
+                <ArrowRight className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Right: Modern Image Reveal */}
+          <div className="relative">
+            {/* Decorative Element */}
+            <div className="absolute -inset-4 bg-gradient-to-tr from-orange-100 to-stone-50 rounded-[3rem] -z-10 transform rotate-3 scale-105 transition-transform duration-500"></div>
+            
+            <img 
+              src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+              alt="Moderne Praxisumgebung" 
+              className="rounded-[2.5rem] w-full h-[500px] lg:h-[650px] object-cover shadow-2xl"
+            />
+            
+            {/* Floating Info Card */}
+            <div className="absolute -bottom-6 -left-6 md:bottom-8 md:-left-12 bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-white max-w-xs">
+              <div className="flex items-center gap-4 mb-2">
+                <div className="bg-orange-100 p-3 rounded-xl text-orange-600">
+                  <Activity className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="font-bold text-stone-900">Seit 2003</p>
+                  <p className="text-xs text-stone-500 font-medium">Erfahrung in der Therapie</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* 1. DIE PRAXIS */}
-      <section id="praxis" className="py-24 px-4 max-w-7xl mx-auto scroll-mt-24">
-        <div className="grid md:grid-cols-2 gap-10">
+      {/* 1. DIE PRAXIS (Redesigned for modern look) */}
+      <section id="praxis" className="py-24 px-4 scroll-mt-24">
+        <div className="max-w-7xl mx-auto">
           
-          {/* STANDORT CREMLINGEN */}
-          <div className="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-stone-100 hover:shadow-xl hover:-translate-y-1 transition duration-300">
-            <div className="inline-flex items-center gap-2 bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-bold text-sm mb-8">
-              <MapPin className="w-4 h-4" />
-              Standort Cremlingen
+          <div className="grid lg:grid-cols-2 gap-8">
+            
+            {/* STANDORT CREMLINGEN */}
+            <div className="bg-white rounded-[2.5rem] p-10 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-100 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-orange-50 rounded-full blur-3xl -z-10 group-hover:bg-orange-100 transition-colors duration-500"></div>
+              
+              <div className="inline-flex items-center gap-2 bg-stone-900 text-white px-4 py-2 rounded-full font-bold text-sm mb-8">
+                <MapPin className="w-4 h-4" />
+                Cremlingen
+              </div>
+              <p className="text-stone-600 text-lg leading-relaxed mb-10">
+                Die Praxis für Logopädie Simone Brendel besteht seit 2003 und befindet sich direkt am Übergang vom Neubaugebiet Steiferlingen zum alten Ortsteil.
+              </p>
+              <ul className="space-y-6">
+                <li className="flex items-start gap-4">
+                  <div className="bg-stone-50 p-3 rounded-2xl text-stone-900"><Store className="w-5 h-5" /></div>
+                  <div>
+                    <h4 className="font-bold text-stone-900 mb-1">Zentrale Lage</h4>
+                    <p className="text-stone-500 text-sm">Gemeindeverwaltung und Einkaufsmöglichkeiten in direkter Nähe.</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4">
+                  <div className="bg-stone-50 p-3 rounded-2xl text-stone-900"><Baby className="w-5 h-5" /></div>
+                  <div>
+                    <h4 className="font-bold text-stone-900 mb-1">Für Geschwister</h4>
+                    <p className="text-stone-500 text-sm">Ein Spielplatz liegt direkt um die Ecke.</p>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <p className="text-stone-600 text-lg leading-relaxed mb-10">
-              Die Praxis für Logopädie Simone Brendel besteht seit 2003 und befindet sich direkt in Cremlingen am Übergang vom Neubaugebiet Steiferlingen zum alten Ortsteil.
-            </p>
-            <ul className="space-y-8">
-              <li className="flex items-start gap-5">
-                <div className="bg-orange-50 p-4 rounded-2xl text-[#ea580c]"><Store className="w-6 h-6" /></div>
-                <div>
-                  <h4 className="font-bold text-stone-800 text-lg mb-1">Zentrale Lage</h4>
-                  <p className="text-stone-600">Die Gemeindeverwaltung, diverse Einkaufsmöglichkeiten und Banken befinden sich nur wenige Gehminuten entfernt.</p>
-                </div>
-              </li>
-              <li className="flex items-start gap-5">
-                <div className="bg-orange-50 p-4 rounded-2xl text-[#ea580c]"><Baby className="w-6 h-6" /></div>
-                <div>
-                  <h4 className="font-bold text-stone-800 text-lg mb-1">Für wartende Geschwister</h4>
-                  <p className="text-stone-600">Außer dem Wartezimmer gibt es die Möglichkeit, einen Spielplatz zu besuchen, der gleich um die Ecke liegt.</p>
-                </div>
-              </li>
-              <li className="flex items-start gap-5">
-                <div className="bg-orange-50 p-4 rounded-2xl text-[#ea580c]"><Coffee className="w-6 h-6" /></div>
-                <div>
-                  <h4 className="font-bold text-stone-800 text-lg mb-1">Entspannte Wartezeit</h4>
-                  <p className="text-stone-600">Gegenüber lädt ein Feldweg zum Spaziergang ein... oder Sie überbrücken die Zeit mit einem Getränk und einer Zeitschrift im Wartezimmer.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
 
-          {/* STANDORT SICKTE */}
-          <div className="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-stone-100 hover:shadow-xl hover:-translate-y-1 transition duration-300">
-            <div className="inline-flex items-center gap-2 bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-bold text-sm mb-8">
-              <MapPin className="w-4 h-4" />
-              Standort Sickte
+            {/* STANDORT SICKTE */}
+            <div className="bg-white rounded-[2.5rem] p-10 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-100 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-50 rounded-full blur-3xl -z-10 group-hover:bg-yellow-100 transition-colors duration-500"></div>
+              
+              <div className="inline-flex items-center gap-2 bg-stone-900 text-white px-4 py-2 rounded-full font-bold text-sm mb-8">
+                <MapPin className="w-4 h-4" />
+                Sickte
+              </div>
+              <p className="text-stone-600 text-lg leading-relaxed mb-10">
+                Die Praxis befindet sich in einem medizinischen Zentrum zusammen mit einer Hausarztpraxis, einer Apotheke und Ernährungsberatung.
+              </p>
+              <ul className="space-y-6">
+                <li className="flex items-start gap-4">
+                  <div className="bg-stone-50 p-3 rounded-2xl text-stone-900"><Accessibility className="w-5 h-5" /></div>
+                  <div>
+                    <h4 className="font-bold text-stone-900 mb-1">Barrierefrei & Parken</h4>
+                    <p className="text-stone-500 text-sm">Großer Parkplatz vor der Tür und barrierefreier Zugang über Fahrstuhl.</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4">
+                  <div className="bg-stone-50 p-3 rounded-2xl text-stone-900"><Coffee className="w-5 h-5" /></div>
+                  <div>
+                    <h4 className="font-bold text-stone-900 mb-1">Entspannte Wartezeit</h4>
+                    <p className="text-stone-500 text-sm">Feldweg gegenüber oder Getränke & Zeitschriften im Wartezimmer.</p>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <p className="text-stone-600 text-lg leading-relaxed mb-10">
-              Die Praxis befindet sich in einem medizinischen Zentrum zusammen mit einer Hausarztpraxis für Allgemeinmedizin, einer Apotheke und einer Praxis für Ernährungsberatung.
-            </p>
-            <ul className="space-y-8">
-              <li className="flex items-start gap-5">
-                <div className="bg-orange-50 p-4 rounded-2xl text-[#ea580c]"><Accessibility className="w-6 h-6" /></div>
-                <div>
-                  <h4 className="font-bold text-stone-800 text-lg mb-1">Barrierefrei & Parken</h4>
-                  <p className="text-stone-600">Ein großer Parkplatz befindet sich direkt vor der Tür. Die Praxis ist barrierefrei über einen Fahrstuhl zu erreichen.</p>
-                </div>
-              </li>
-              <li className="flex items-start gap-5">
-                <div className="bg-orange-50 p-4 rounded-2xl text-[#ea580c]"><Store className="w-6 h-6" /></div>
-                <div>
-                  <h4 className="font-bold text-stone-800 text-lg mb-1">Infrastruktur</h4>
-                  <p className="text-stone-600">Diverse Einkaufsmöglichkeiten und Banken befinden sich nur wenige Gehminuten entfernt.</p>
-                </div>
-              </li>
-              <li className="flex items-start gap-5">
-                <div className="bg-orange-50 p-4 rounded-2xl text-[#ea580c]"><Trees className="w-6 h-6" /></div>
-                <div>
-                  <h4 className="font-bold text-stone-800 text-lg mb-1">Wartezeit angenehm gestalten</h4>
-                  <p className="text-stone-600">Gegenüber lädt ein Feldweg zum Spaziergang ein. Im Wartezimmer warten Getränke, Zeitschriften und Spielmaterialien für Geschwister.</p>
-                </div>
-              </li>
-            </ul>
+
           </div>
         </div>
       </section>
 
       {/* 2. FRAGEN ZUR THERAPIE */}
-      <section id="fragen" className="bg-white py-24 px-4 border-t border-stone-200 scroll-mt-24">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="bg-orange-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <HelpCircle className="w-10 h-10 text-[#ea580c]" />
-            </div>
-            <h2 className="text-4xl font-bold text-stone-800 mb-4">Was ist Logopädie?</h2>
-          </div>
+      <section id="fragen" className="bg-stone-900 text-white py-32 px-4 scroll-mt-24 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-10 tracking-tight">Was ist Logopädie?</h2>
           
-          <div className="bg-stone-50 p-10 md:p-14 rounded-[2rem] border border-stone-100 shadow-sm">
-            <p className="text-xl md:text-2xl text-stone-700 font-medium mb-8 italic border-l-4 border-yellow-400 pl-6">
-              Der Begriff stammt aus dem Griechischen und leitet sich von „logos“ = „das Wort“ und „pädeuein“ = „erziehen“ ab.
+          <div className="bg-stone-800/50 backdrop-blur-xl p-10 md:p-16 rounded-[3rem] border border-stone-700">
+            <p className="text-xl md:text-3xl font-light mb-12 text-stone-300 leading-snug">
+              Der Begriff stammt aus dem Griechischen und leitet sich von <span className="text-orange-400 font-medium">„logos“</span> (das Wort) und <span className="text-orange-400 font-medium">„pädeuein“</span> (erziehen) ab.
             </p>
-            <div className="space-y-6 text-stone-600 text-lg leading-relaxed">
+            <div className="text-stone-400 text-lg leading-relaxed max-w-2xl mx-auto space-y-6 text-left">
               <p>
-                Heute bezeichnet die Logopädie die noch junge medizinisch-therapeutische Fachdisziplin, die den durch eine Sprach-, Sprech-, Stimm-, Schluck- oder Hörbeeinträchtigung in seiner zwischenmenschlichen Kommunikationsfähigkeit eingeschränkten Menschen zum Gegenstand hat.
+                Heute bezeichnet die Logopädie die medizinisch-therapeutische Fachdisziplin, die den in seiner Kommunikationsfähigkeit eingeschränkten Menschen zum Gegenstand hat.
               </p>
               <p>
-                Die Logopädie beschäftigt sich in Theorie und Praxis mit Prävention, Beratung, Diagnostik, Therapie und Rehabilitation, Lehre und Forschung auf den Gebieten der <strong>Stimme</strong> (Stimmstörungen und Stimmtherapie), des <strong>Sprechens</strong> (Sprechstörungen und Sprechtherapie), der <strong>Sprache</strong> (Sprachstörungen und Sprachtherapie) sowie des <strong>Schluckens</strong> (Schluckstörungen und Schlucktherapie).
+                Sie beschäftigt sich mit Prävention, Beratung, Diagnostik und Therapie auf den Gebieten der <strong>Stimme</strong>, des <strong>Sprechens</strong>, der <strong>Sprache</strong> sowie des <strong>Schluckens</strong>.
               </p>
             </div>
           </div>
@@ -185,139 +211,95 @@ export default function App() {
       </section>
 
       {/* 3. STÖRUNGSBILDER */}
-      <section id="stoerungen" className="py-24 px-4 scroll-mt-24">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="bg-orange-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Activity className="w-10 h-10 text-[#ea580c]" />
-            </div>
-            <h2 className="text-4xl font-bold text-stone-800 mb-6">Störungsbilder</h2>
-            <div className="inline-flex items-center gap-3 bg-white px-8 py-4 rounded-full text-stone-700 shadow-sm border border-stone-200 font-medium">
-              <GlobeIcon className="w-6 h-6 text-blue-500" />
-              <span>Wir behandeln Kinder und Erwachsene in <strong>deutscher und polnischer Sprache</strong>.</span>
+      <section id="stoerungen" className="py-32 px-4 scroll-mt-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold text-stone-900 mb-6 tracking-tight">Störungsbilder</h2>
+              <div className="inline-flex items-center gap-3 bg-blue-50 text-blue-900 px-6 py-3 rounded-2xl font-medium">
+                <GlobeIcon className="w-5 h-5 text-blue-600" />
+                Wir behandeln in deutscher und polnischer Sprache.
+              </div>
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-stone-100 hover:shadow-lg transition duration-300">
-              <MessageCircle className="w-10 h-10 text-[#ea580c] mb-8" />
-              <h3 className="text-2xl font-bold text-stone-800 mb-6">Störungen der Sprache</h3>
-              <blockquote className="bg-orange-50/50 text-orange-900 p-6 rounded-2xl mb-8 font-medium italic border border-orange-100">
-                „Wenn die Sprache nicht stimmt, so ist das, was gesagt wird, nicht das, was gemeint ist.“ <br/>
-                <span className="text-sm text-orange-700/80 not-italic mt-3 block font-bold uppercase tracking-wider">Konfuzius</span>
-              </blockquote>
-              <p className="text-stone-600 leading-relaxed text-lg">
-                Hierbei handelt es sich z.B. um Sprachentwicklungsstörungen, Störungen des Lautsystems (phonologische Störung), reduzierten Wortschatz, Störung der Grammatikentwicklung (Dysgrammatismus), Aphasie nach Schlaganfall, Hirnblutungen, Schädel-Hirn-Traumen, Tumore, Hirnoperationen oder degenerative Erkrankungen (z.B. Demenz).
+            {/* SPRACHE */}
+            <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-stone-100">
+              <div className="bg-orange-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-8">
+                <MessageCircle className="w-8 h-8 text-orange-600" />
+              </div>
+              <h3 className="text-3xl font-bold text-stone-900 mb-6">Sprache</h3>
+              <p className="text-stone-500 leading-relaxed text-lg mb-8">
+                Sprachentwicklungsstörungen, phonologische Störungen, reduzierter Wortschatz, Dysgrammatismus, Aphasie nach Schlaganfall, Hirnblutungen, Tumore oder degenerative Erkrankungen.
               </p>
+              <div className="border-l-2 border-stone-200 pl-6">
+                <p className="italic text-stone-600 mb-2">„Wenn die Sprache nicht stimmt, so ist das, was gesagt wird, nicht das, was gemeint ist.“</p>
+                <p className="text-xs font-bold text-stone-400 uppercase tracking-widest">Konfuzius</p>
+              </div>
             </div>
 
-            <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-stone-100 hover:shadow-lg transition duration-300">
-              <Mic className="w-10 h-10 text-[#ea580c] mb-8" />
-              <h3 className="text-2xl font-bold text-stone-800 mb-6">Störungen des Sprechens</h3>
-              <blockquote className="bg-orange-50/50 text-orange-900 p-6 rounded-2xl mb-8 font-medium italic border border-orange-100">
-                „Wer deutlich spricht, riskiert, verstanden zu werden.“ <br/>
-                <span className="text-sm text-orange-700/80 not-italic mt-3 block font-bold uppercase tracking-wider">Norbert Stoffel</span>
-              </blockquote>
-              <p className="text-stone-600 leading-relaxed text-lg">
-                Sprechstörungen im Kindesalter treten häufig im Rahmen von Entwicklungsstörungen und Behinderungen auf. Wie bei Erwachsenen handelt es sich um zentral oder peripher bedingte Störungen der Sprechorgane. Es finden sich Störungen der Aussprache (Lispeln), Dysarthrie (z.B. durch Lähmungen), verbale Entwicklungsdyspraxie und Sprechapraxie.
+            {/* SPRECHEN */}
+            <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-stone-100">
+              <div className="bg-orange-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-8">
+                <Mic className="w-8 h-8 text-orange-600" />
+              </div>
+              <h3 className="text-3xl font-bold text-stone-900 mb-6">Sprechen</h3>
+              <p className="text-stone-500 leading-relaxed text-lg mb-8">
+                Störungen der Aussprache (Lispeln), Dysarthrie (z.B. durch Lähmungen), verbale Entwicklungsdyspraxie und Sprechapraxie. Häufig im Rahmen von Entwicklungsstörungen.
               </p>
+              <div className="border-l-2 border-stone-200 pl-6">
+                <p className="italic text-stone-600 mb-2">„Wer deutlich spricht, riskiert, verstanden zu werden.“</p>
+                <p className="text-xs font-bold text-stone-400 uppercase tracking-widest">Norbert Stoffel</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4. SCHULUNGSANGEBOTE */}
-      <section id="schulungen" className="bg-white py-24 px-4 border-t border-stone-200 scroll-mt-24">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16 max-w-2xl mx-auto">
-            <div className="bg-orange-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <BookOpen className="w-10 h-10 text-[#ea580c]" />
-            </div>
-            <h2 className="text-4xl font-bold text-stone-800 mb-6">Schulungsangebote</h2>
-            <p className="text-stone-500 text-xl leading-relaxed">Wir passen die Fortbildungsinhalte Ihren individuellen Bedürfnissen an – sprechen Sie uns an!</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
-            <div className="bg-stone-50 p-8 md:p-10 rounded-[2rem] border border-stone-100">
-              <h4 className="font-bold text-xl mb-4 text-stone-800">Für Berufssprecher</h4>
-              <p className="text-stone-600 leading-relaxed">
-                Stimmbildung und Sprecherziehung für Berufssprecher wie z.B. Mitarbeiter im Call-Center, Lehrer oder Fitnesstrainer. Als Einzel- oder Gruppenschulungen.
-              </p>
-            </div>
-            
-            <div className="bg-stone-50 p-8 md:p-10 rounded-[2rem] border border-stone-100">
-              <h4 className="font-bold text-xl mb-4 text-stone-800">Für Pflegepersonal</h4>
-              <p className="text-stone-600 leading-relaxed">
-                Schulungen zum Thema Schluckstörungen und Nahrungsaufnahme in Krankenhäusern, Altenheimen und Pflegediensten (z.B. bei Demenz oder ALS).
-              </p>
-            </div>
-
-            <div className="bg-stone-50 p-8 md:p-10 rounded-[2rem] border border-stone-100">
-              <h4 className="font-bold text-xl mb-4 text-stone-800">Für Eltern & Kitas</h4>
-              <p className="text-stone-600 leading-relaxed">
-                Elternabende zu den Bereichen Sprachentwicklung und Sprachförderung oder zu komplett individuell vereinbarten Themen.
-              </p>
-            </div>
-          </div>
-
-          {/* Fortbildungen Erzieherinnen */}
-          <div className="bg-gradient-to-br from-orange-50 to-yellow-50 p-10 md:p-14 rounded-[2rem] border border-orange-100/50 flex flex-col md:flex-row gap-10 items-center shadow-sm">
-            <div className="flex-1">
-              <h4 className="text-2xl font-bold text-orange-900 mb-8">Spezielle Fortbildungen für Erzieherinnen</h4>
-              <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-4">
-                {[
-                  "Sprachentwicklung",
-                  "Verbindung zw. allg. Entwicklung & Sprache",
-                  "Sprachfördernde & hemmende Faktoren",
-                  "Das Sprachvorbild",
-                  "Mehrsprachigkeit",
-                  "Risikofaktoren & mögliche Sprachstörungen"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-orange-800/90 font-medium text-lg">
-                    <div className="w-2 h-2 rounded-full bg-orange-400 flex-shrink-0"></div>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <Users className="w-32 h-32 text-orange-300/50 hidden md:block" />
-          </div>
-        </div>
-      </section>
-
-      {/* 5. AKTUELLES */}
-      <section id="aktuelles" className="py-24 px-4 bg-stone-900 text-white scroll-mt-24 relative overflow-hidden">
-         <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-500 via-orange-400 via-yellow-400 via-green-400 via-blue-500 to-purple-500"></div>
-         
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <div className="bg-white/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
-            <Newspaper className="w-10 h-10 text-orange-400" />
-          </div>
-          <h2 className="text-4xl font-bold mb-12">Aktuelles</h2>
+      {/* 4. SCHULUNGEN & AKTUELLES */}
+      <section id="schulungen" className="py-24 px-4 bg-stone-100 scroll-mt-24 rounded-t-[3rem]">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16">
           
-          <div className="space-y-6">
-            <div className="bg-white/5 backdrop-blur-md p-8 rounded-[2rem] border border-white/10 flex flex-col sm:flex-row items-center gap-6 text-left hover:bg-white/10 transition">
-              <div className="bg-green-500/20 p-5 rounded-full flex-shrink-0"><Users className="w-8 h-8 text-green-400" /></div>
-              <div>
-                <h4 className="font-bold text-xl mb-2 text-white">Verstärkung gesucht!</h4>
-                <p className="text-stone-300 text-lg leading-relaxed">Wir suchen immer wieder neue Kolleginnen und Kollegen – fragen Sie einfach ganz unverbindlich bei uns nach.</p>
+          <div>
+            <h2 className="text-3xl font-bold text-stone-900 mb-8">Schulungsangebote</h2>
+            <div className="space-y-6">
+              <div className="bg-white p-6 rounded-3xl border border-stone-200/50">
+                <h4 className="font-bold text-stone-900 mb-2">Für Berufssprecher</h4>
+                <p className="text-stone-500 text-sm">Stimmbildung und Sprecherziehung (Call-Center, Lehrer, Trainer).</p>
               </div>
-            </div>
-
-            <div className="bg-white/5 backdrop-blur-md p-8 rounded-[2rem] border border-white/10 flex flex-col sm:flex-row items-center gap-6 text-left hover:bg-white/10 transition">
-              <div className="bg-blue-500/20 p-5 rounded-full flex-shrink-0"><AlertCircle className="w-8 h-8 text-blue-400" /></div>
-              <div>
-                <h4 className="font-bold text-xl mb-2 text-white">Hinweis zur Erreichbarkeit</h4>
-                <p className="text-stone-300 text-lg leading-relaxed">Liebe Patienten, da sich immer wieder Mitarbeiterinnen in Elternzeit befinden, ist derzeit nicht jede Therapeutin zu kontaktieren. Wir bitten um Ihr Verständnis.</p>
+              <div className="bg-white p-6 rounded-3xl border border-stone-200/50">
+                <h4 className="font-bold text-stone-900 mb-2">Für Pflegepersonal</h4>
+                <p className="text-stone-500 text-sm">Schluckstörungen und Nahrungsaufnahme (Demenz, ALS).</p>
+              </div>
+              <div className="bg-white p-6 rounded-3xl border border-stone-200/50">
+                <h4 className="font-bold text-stone-900 mb-2">Für Erzieherinnen</h4>
+                <p className="text-stone-500 text-sm">Fortbildungen zu Sprachentwicklung, Mehrsprachigkeit und Risikofaktoren.</p>
               </div>
             </div>
           </div>
+
+          <div id="aktuelles" className="scroll-mt-24">
+            <h2 className="text-3xl font-bold text-stone-900 mb-8">Aktuelles</h2>
+            <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-10 rounded-[3rem] text-white shadow-xl">
+              <Newspaper className="w-10 h-10 mb-6 text-orange-200" />
+              <h4 className="font-bold text-2xl mb-4">Verstärkung gesucht!</h4>
+              <p className="text-orange-100 text-lg leading-relaxed mb-8">Wir suchen immer wieder neue Kolleginnen und Kollegen – fragen Sie einfach unverbindlich bei uns nach.</p>
+              
+              <div className="bg-black/20 p-6 rounded-2xl backdrop-blur-sm">
+                <p className="text-sm text-orange-50 font-medium">
+                  <strong>Hinweis:</strong> Da sich Mitarbeiterinnen in Elternzeit befinden, ist derzeit nicht jede Therapeutin zu kontaktieren. Wir bitten um Verständnis.
+                </p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
-
+      
       {/* FOOTER */}
       <footer className="bg-stone-950 text-stone-500 py-10 text-center text-sm">
-        <p>© {new Date().getFullYear()} Praxis für Logopädie Simone Brendel.</p>
+        <p>© {new Date().getFullYear()} Praxis für Logopädie Simone Brendel. Ein moderner Konzept-Entwurf.</p>
       </footer>
       
     </div>
