@@ -1,13 +1,12 @@
-import { MapPin, Coffee, Accessibility, Car, Trees, Store, Baby } from 'lucide-react';
+import { MapPin, Coffee, Accessibility, Store, Baby, Trees, HelpCircle, Activity, BookOpen, Newspaper } from 'lucide-react';
 
 export default function App() {
   return (
     <div className="min-h-screen bg-stone-50 text-stone-800 font-sans">
       
-      {/* NAVIGATION (Basierend auf image_13.png) */}
+      {/* NAVIGATION */}
       <header className="bg-[#fcd34d] pt-6 pb-4 sticky top-0 z-50 shadow-sm">
         <div className="max-w-6xl mx-auto px-4">
-          {/* Menüpunkte */}
           <nav className="flex flex-wrap justify-center md:justify-between items-center gap-4 text-[#ea580c] text-lg md:text-xl font-medium tracking-wide">
             <a href="#praxis" className="hover:text-orange-900 transition">Die Praxis</a>
             <a href="#fragen" className="hover:text-orange-900 transition">Fragen zur Therapie</a>
@@ -15,7 +14,6 @@ export default function App() {
             <a href="#schulungen" className="hover:text-orange-900 transition">Schulungsangebote</a>
             <a href="#aktuelles" className="hover:text-orange-900 transition">Aktuelles</a>
           </nav>
-          {/* Die weiße Linie aus dem Design */}
           <div className="mt-3 w-full h-1.5 bg-white/90 rounded-full"></div>
         </div>
       </header>
@@ -33,11 +31,11 @@ export default function App() {
         </div>
       </section>
 
-      {/* STANDORTE BEREICH */}
-      <section id="praxis" className="py-20 px-4 max-w-7xl mx-auto">
+      {/* 1. DIE PRAXIS */}
+      <section id="praxis" className="py-20 px-4 max-w-7xl mx-auto scroll-mt-24">
         <div className="grid md:grid-cols-2 gap-10">
           
-          {/* STANDORT 1: CREMLINGEN */}
+          {/* STANDORT CREMLINGEN */}
           <div className="bg-white rounded-3xl p-8 md:p-12 shadow-md border border-stone-100 hover:shadow-lg transition">
             <div className="inline-flex items-center gap-2 bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-semibold text-sm mb-8">
               <MapPin className="w-4 h-4" />
@@ -81,7 +79,7 @@ export default function App() {
             </ul>
           </div>
 
-          {/* STANDORT 2: SICKTE */}
+          {/* STANDORT SICKTE */}
           <div className="bg-white rounded-3xl p-8 md:p-12 shadow-md border border-stone-100 hover:shadow-lg transition">
             <div className="inline-flex items-center gap-2 bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-semibold text-sm mb-8">
               <MapPin className="w-4 h-4" />
@@ -89,7 +87,7 @@ export default function App() {
             </div>
             
             <p className="text-stone-600 text-lg leading-relaxed mb-8">
-              Die Praxis befindet sich in einem medizinischen Zentrum zusammen mit einer Gemeinschaftspraxis für Allgemeinmedizin, einer zahnärztlichen Gemeinschaftspraxis, einer Apotheke und einer Praxis für Ernährungsberatung.
+              Die Praxis befindet sich in einem medizinischen Zentrum zusammen mit einer Hausarztpraxis für Allgemeinmedizin, einer Apotheke und einer Praxis für Ernährungsberatung.
             </p>
 
             <ul className="space-y-6">
@@ -128,10 +126,55 @@ export default function App() {
         </div>
       </section>
 
+      {/* 2. FRAGEN ZUR THERAPIE */}
+      <section id="fragen" className="bg-white py-24 px-4 border-t border-stone-200 scroll-mt-24">
+        <div className="max-w-4xl mx-auto text-center">
+          <HelpCircle className="w-12 h-12 text-[#ea580c] mx-auto mb-4" />
+          <h2 className="text-3xl font-bold text-stone-800 mb-6">Fragen zur Therapie</h2>
+          <div className="bg-stone-50 border-2 border-stone-200 rounded-2xl p-10 border-dashed">
+            <p className="text-stone-500 text-lg">Platzhalter für "Fragen zur Therapie". Schick mir einfach die Infos, dann baue ich sie hier formatiert ein!</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. STÖRUNGSBILDER */}
+      <section id="stoerungen" className="py-24 px-4 scroll-mt-24">
+        <div className="max-w-4xl mx-auto text-center">
+          <Activity className="w-12 h-12 text-[#ea580c] mx-auto mb-4" />
+          <h2 className="text-3xl font-bold text-stone-800 mb-6">Störungsbilder</h2>
+          <div className="bg-white border-2 border-stone-200 rounded-2xl p-10 border-dashed">
+            <p className="text-stone-500 text-lg">Platzhalter für "Störungsbilder". Schick mir einfach die Infos, dann baue ich sie hier formatiert ein!</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. SCHULUNGSANGEBOTE */}
+      <section id="schulungen" className="bg-white py-24 px-4 border-t border-stone-200 scroll-mt-24">
+        <div className="max-w-4xl mx-auto text-center">
+          <BookOpen className="w-12 h-12 text-[#ea580c] mx-auto mb-4" />
+          <h2 className="text-3xl font-bold text-stone-800 mb-6">Schulungsangebote</h2>
+          <div className="bg-stone-50 border-2 border-stone-200 rounded-2xl p-10 border-dashed">
+            <p className="text-stone-500 text-lg">Platzhalter für "Schulungsangebote". Schick mir einfach die Infos, dann baue ich sie hier formatiert ein!</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. AKTUELLES */}
+      <section id="aktuelles" className="py-24 px-4 scroll-mt-24">
+        <div className="max-w-4xl mx-auto text-center">
+          <Newspaper className="w-12 h-12 text-[#ea580c] mx-auto mb-4" />
+          <h2 className="text-3xl font-bold text-stone-800 mb-6">Aktuelles</h2>
+          <div className="bg-white border-2 border-stone-200 rounded-2xl p-10 border-dashed">
+            <p className="text-stone-500 text-lg">Platzhalter für "Aktuelles". Schick mir einfach die Infos, dann baue ich sie hier formatiert ein!</p>
+          </div>
+        </div>
+      </section>
+
       {/* FOOTER */}
-      <footer className="bg-stone-900 text-stone-400 py-8 text-center text-sm mt-10">
+      <footer className="bg-stone-900 text-stone-400 py-8 text-center text-sm">
         <p>© {new Date().getFullYear()} Praxis für Logopädie Simone Brendel.</p>
       </footer>
+      
     </div>
   );
 }
